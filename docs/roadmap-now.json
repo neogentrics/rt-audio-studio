@@ -1,0 +1,54 @@
+{
+  "now": {
+    "title": "The plan is ready for your approval",
+    "note": "Nothing is built. Your seven answers are in, every audio library has been checked, and building starts only when you say so.",
+    "items": [
+      {
+        "title": "What you'd be approving",
+        "text": "Step zero, 18 small releases, and the eight recommendations under Decisions."
+      },
+      {
+        "title": "The first job",
+        "text": "Step zero proves recording on your own gear before anything is built on it."
+      },
+      {
+        "title": "What the checks found",
+        "text": "Audible and Voices by INaudio can't take Reader's natural voices, so the app tracks which audio is machine-made."
+      }
+    ]
+  },
+  "waiting": {
+    "title": "Your approval, and {decisions} recommendations",
+    "text": "The plan follows these already. Approving it approves them, and any can be changed."
+  },
+  "questions": [
+    {
+      "q": "Can a book read by the natural voices go on Audible?",
+      "a": "No, not as things stand. ACX says a book must be narrated by a human unless authorised, and Voices by INaudio takes AI audio only from Google Play Books, ElevenLabs and Spoken Press. Those voices can be sold on your own site, labelled as machine-made, and the app keeps them away from stores that refuse them."
+    },
+    {
+      "q": "Does a clone of my own voice count as human?",
+      "a": "Not at Voices by INaudio: its page counts a clone of your own voice as digital narration. Cloning a voice isn't in this plan."
+    },
+    {
+      "q": "Why isn't there .m4b on Linux?",
+      "a": "Linux has no AAC encoder built in. FFmpeg's would work and its licence is allowed, but the AAC patent pool is still active, so you chose MP3 and FLAC there. Every store file works on all three systems."
+    },
+    {
+      "q": "Why can't Reader's Whisper just do transcripts?",
+      "a": "It stops at 30 seconds, gives no times, and uses the small model. It was built for dictating a sentence. v1.8 builds on it for hours of speech with a time on every word."
+    },
+    {
+      "q": "When do names come from RT Story Tracker?",
+      "a": "v1.11, which needs facts in Story Tracker's v3.8 and its dictionary in v3.12, which isn't built yet. A chapter can come across in v1.7, because App Link already carries that."
+    },
+    {
+      "q": "Will the app upload to Audible or my podcast host?",
+      "a": "No. It makes the files and you send them, so it needs no store login. The episode pack in v1.12 is everything your host's upload page asks for."
+    },
+    {
+      "q": "What if work stops after a release?",
+      "a": "Each release does a real job by itself, and a project is a folder of ordinary audio files, so nothing is stranded."
+    }
+  ]
+}
