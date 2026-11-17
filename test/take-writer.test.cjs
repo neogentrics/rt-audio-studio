@@ -69,7 +69,7 @@ test('a crash mid-frame is repaired: sizes from the real length, the cut frame d
 
 test('a full disk stops the take cleanly and keeps everything written', () => {
   const dir = tmp();
-  let budget = wav.HEADER + 48000 * 4 * 2;     // room for two seconds of mono
+  let budget = 48000 * 4 * 2;     // room for two seconds of mono after the header
   const full = Object.assign(Object.create(fs), {
     writeSync(fd, buf, off, len, pos) {
       if (pos >= wav.HEADER && len > 4) {
