@@ -41,7 +41,10 @@ function frames(buf) {
   return out;
 }
 
-const lamejs = require('lamejs');
+// The same file Reader ships: lamejs's own CommonJS entry fails under Node ("MPEGMode is not defined").
+const sandbox = {};
+require('node:vm').runInNewContext(fs.readFileSync(require.resolve('lamejs/lame.min.js'), 'utf8'), sandbox);
+const { lamejs } = sandbox;
 const enc = new lamejs.Mp3Encoder(1, RATE, KBPS);
 const chunks = [];
 const block = 1152 * 10;
