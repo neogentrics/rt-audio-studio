@@ -15,8 +15,9 @@ const RATE = 48000;
 const dir = fs.mkdtempSync(path.join(process.argv[3] || os.tmpdir(), 'rtas-long-'));
 const disk = new Disk();
 const mb = (n) => Math.round(n / 1048576);
+// The loops below never yield, so a timer would never run: memory is sampled inside them instead.
 let maxRss = 0;
-const watch = setInterval(() => { maxRss = Math.max(maxRss, process.memoryUsage().rss); }, 200);
+const sample = () => { maxRss = Math.max(maxRss, process.memoryUsage().rss); };
 const t0 = Date.now();
 
 // 1. Record: one second at a time, as a microphone would deliver it.
@@ -26,6 +27,7 @@ let n = 0;
 for (let s = 0; s < HOURS * 3600; s++) {
   for (let i = 0; i < RATE; i++, n++) second[i] = 0.3 * Math.sin((2 * Math.PI * 180 * n) / RATE) * (((n / RATE) % 7) < 5 ? 1 : 0.01);
   w.write(second);
+  if (s % 60 === 0) sample();
 }
 const take = w.close();
 const recordSeconds = (Date.now() - t0) / 1000;
@@ -42,6 +44,7 @@ for (const part of take.parts) {
   for (let at = wav.HEADER; at < end; at += 1 << 20) {
     const buf = h.readAt(at, Math.min(1 << 20, end - at));
     b.add(new Float32Array(buf.buffer.slice(buf.byteOffset, buf.byteOffset + buf.byteLength)));
+    sample();
   }
   h.close();
 }
@@ -61,7 +64,7 @@ const timings = zooms.map(([name, len]) => {
   times.sort((a, c) => a - c);
   return `${name}: median ${times[100].toFixed(2)} ms, slowest ${times[199].toFixed(2)} ms`;
 });
-clearInterval(watch);
+sample();
 maxRss = Math.max(maxRss, process.memoryUsage().rss);
 const bytes = take.parts.reduce((s, p) => s + fs.statSync(p).size, 0);
 
