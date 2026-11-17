@@ -1,25 +1,25 @@
 {
   "now": {
-    "title": "The plan is ready for your approval",
-    "note": "Nothing is built. Your seven answers are in, every audio library has been checked, and building starts only when you say so.",
+    "title": "Step zero: prove the hard parts",
+    "note": "The plan was approved on 17 November 2026. Building happens on the Linux dev machine, and the tests that need a microphone wait for your own computer.",
     "items": [
       {
-        "title": "What you'd be approving",
-        "text": "Step zero, 18 small releases, and the eight recommendations under Decisions."
+        "title": "On the dev machine",
+        "text": "Project setup, the disk layer, meters checked against test files, the MP3 encoder, and very long files."
       },
       {
-        "title": "The first job",
-        "text": "Step zero proves recording on your own gear before anything is built on it."
+        "title": "Needs your gear",
+        "text": "Two hours of recording on your own microphone, and the microphone on a Mac. The dev machine has no sound card."
       },
       {
-        "title": "What the checks found",
-        "text": "Audible and Voices by INaudio can't take Reader's natural voices, so the app tracks which audio is machine-made."
+        "title": "Added since the plan",
+        "text": "Google Play Books beside ACX, recordings you already have, a rights check, and a voice of your own in v1.17."
       }
     ]
   },
   "waiting": {
-    "title": "Your approval, and {decisions} recommendations",
-    "text": "The plan follows these already. Approving it approves them, and any can be changed."
+    "title": "Nothing waiting on you",
+    "text": "Every decision is made. You'll be asked to run the recording test when step zero gets to it."
   },
   "questions": [
     {
@@ -28,7 +28,7 @@
     },
     {
       "q": "Does a clone of my own voice count as human?",
-      "a": "Not at Voices by INaudio: its page counts a clone of your own voice as digital narration. Cloning a voice isn't in this plan."
+      "a": "Not at Voices by INaudio: its page counts a clone of your own voice as digital narration. A voice of your own, in v1.17, is always labelled as synthesized."
     },
     {
       "q": "Why isn't there .m4b on Linux?",
@@ -49,6 +49,18 @@
     {
       "q": "What if work stops after a release?",
       "a": "Each release does a real job by itself, and a project is a folder of ordinary audio files, so nothing is stranded."
+    },
+    {
+      "q": "Can I replace Google's AI audiobooks with better ones?",
+      "a": "That's the plan in v1.5: a complete set of files the way Google asks, marked Human narrator or Synthesized voice. Try it on one book first, because Google's help doesn't describe the swap."
+    },
+    {
+      "q": "Can the app learn my voice and read the book in it?",
+      "a": "v1.17 makes a voice from a short reading, on your own computer, with Chatterbox, which is MIT for its code and model files. You read a consent sentence into the app first, every time, and the audio is always labelled as synthesized, so ACX won't take it."
+    },
+    {
+      "q": "Can I reuse my ACX recordings elsewhere?",
+      "a": "Only if the title isn't on an ACX exclusive deal, which runs seven years. The app asks before exporting such a title to another store."
     }
   ]
 }

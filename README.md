@@ -7,8 +7,8 @@ else to install.
 RT Audio Studio is part of the **Recon Towers** suite, built by its Dev Department. It was inspired by the owner writing his
 own books.
 
-> **Status: being planned. No code has been written, and there's nothing to download yet.**
-> Building starts when the owner approves the plan. Start with the [roadmap](ROADMAP.md).
+> **Status: step zero. The plan was approved on 17 November 2026, and there's nothing to download yet.**
+> Start with the [roadmap](ROADMAP.md).
 
 ## What it will do
 
@@ -25,8 +25,9 @@ own books.
 - **Make transcripts on your computer.** Nothing is sent anywhere. Transcripts feed subtitles, show notes and a check of the
   recording against the script.
 - **Say the names right.** Names and invented words come from RT Story Tracker's dictionary, so a name is taught once.
-- **Work with any narrator.** Your own voice, a hired narrator's files, or the natural voices from RT Markdown Reader. The
-  app keeps track of which is which, so a machine voice can't reach a store that doesn't allow one.
+- **Work with any narrator.** Your own voice, recordings you already have, a hired narrator's files, the natural voices from
+  RT Markdown Reader, or a voice made from one person's reading with their spoken consent. The app keeps track of which is
+  which, so a machine voice can't reach a store that doesn't allow one.
 
 ## What it won't do
 
@@ -34,7 +35,8 @@ own books.
 - Host your show or your feed. Your host keeps doing that.
 - Promise that a store will accept a book. Stores also have people listening, and their rules change. Each check shows when
   its rule was last confirmed.
-- Clone a voice, or make music.
+- Copy anyone's voice from a recording. A voice of your own needs that person reading their consent into the app.
+- Make music.
 - Need AI. Transcripts and smart noise removal are optional downloads. Writing help and outside voice services are add-ons,
   off until you turn them on, with your choice of service, including a model on your own computer.
 

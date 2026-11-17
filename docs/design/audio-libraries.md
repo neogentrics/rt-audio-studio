@@ -44,6 +44,25 @@ be replaced, listed in the notices, and never bundled into the app's code. GPL a
 | RNNoise | BSD-3-Clause | Smart noise removal, smaller and quicker | Works at 48 kHz only. WebAssembly builds: `@shiguredo/rnnoise-wasm` (Apache-2.0), `@sapphi-red/web-noise-suppressor` (MIT) |
 | Silero VAD | MIT | Finding speech in long files, for transcripts | `@ricky0123/vad-web` (ISC) is a ready wrapper |
 
+## A voice of your own (v1.17)
+
+Checked 17 November 2026 on GitHub and on the model pages themselves, because several of these have MIT code and restricted model files.
+
+| Model | Code | Model files | Verdict |
+|---|---|---|---|
+| Chatterbox | MIT | MIT, and the ONNX copy at `onnx-community/chatterbox-ONNX` is MIT too | **First choice.** Runs on ONNX Runtime like the natural voices. Copies a voice from about 10 seconds, so consent matters (decision 18). Its watermark library, Perth, is MIT. Resemble AI now keeps the repo as an unsupported archive. The ONNX copy is English and makes 24 kHz audio, so export resamples it |
+| OpenVoice v2 | MIT | MIT | **Not cleared.** Its voice extractor imports `whisper-timestamped`, which is **AGPL-3.0**, and it needs MeloTTS and Python. Usable only with that part replaced. Last updated April 2025 |
+| CosyVoice 2 | Apache-2.0 | Apache-2.0 | Second look, if Chatterbox falls short |
+| NeuTTS Air | Apache-2.0 | Apache-2.0, behind an automatic sign-up gate. Its other models use the NeuTTS Open Licence | Second look |
+| XTTS v2 | MPL-2.0 | **Coqui Public Model License: non-commercial, outputs included** | Refused |
+| F5-TTS | MIT | **CC-BY-NC-4.0**, because of its training data | Refused |
+| Fish Speech 1.5 | Its own | **CC-BY-NC-SA-4.0** | Refused |
+| IndexTTS-2 | Its own | bilibili's own licence, which treats outputs as derivative works | Refused |
+| Seed-VC | **GPL-3.0** | — | Refused, and archived |
+| ChatTTS | **AGPL-3.0** | — | Refused |
+
+None of these is *trained* on a person in the app. They copy a voice from a short reading. Real training needs Python and a graphics card, which breaks "nothing else to install", so it isn't planned.
+
 ## Held in reserve
 
 Only if step zero shows they're needed.

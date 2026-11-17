@@ -59,9 +59,33 @@ The noise floor is the level in the silence between phrases. How we measure it g
 
 This wants a very different layout from ACX: a few long tracks, not one file per chapter. Export has to handle both. How an author reaches Apple, directly or through a distributor, needs checking before v1.5.
 
-## Google Play Books and Kobo
+## Google Play Books
 
-**Not confirmed.** No official figures were found on 6 November 2026, and blogs disagree. Their profiles wait until the rules are read at the source. Kobo's own page says you ask its team for the audiobook tab first.
+**Confirmed from Google's [Book file guidelines](https://support.google.com/books/partner/answer/3424254), read 17 November 2026.**
+
+| Rule | Value |
+|---|---|
+| Formats | .mp3, .aac, .flac, .wav, .zip or .lpf |
+| Length | At least 5 minutes, at most 100 hours |
+| MP3 | Constant bit rate preferred, 128 kbps or more for mono, 256 kbps or more for stereo |
+| AAC | Constant bit rate preferred, over 128 kbps for mono, 256 kbps or more for stereo |
+| FLAC and WAV | 16-bit, at least 44.1 kHz |
+| Names | `ID_1of1.mp3` for one file, `ID_XofY.mp3` for several. Other names delay processing by 24 hours |
+| Cover | PNG or JPEG, 1,024 to 7,200 pixels, square recommended |
+
+Google's [sound quality page](https://support.google.com/books/partner/answer/9550388) lists automatic checks for skips, repeated patterns, silence and test tones, and says a fix means uploading a new complete set of files. It gives no loudness or noise figures.
+
+**From the owner's notes, not yet seen in Google's help:** each file under 2 GB, a new upload replacing the old version, and each audiobook marked *Human narrator* or *Synthesized voice*, with AI-made audio marked *Synthesized voice*. These come from Partner Center itself, which needs his sign-in, so check them there before v1.5. Google's help doesn't say how to swap one of its own auto-narrated books for your recording, so try it on one book first.
+
+**Google's own auto-narrated books** ([policy](https://support.google.com/books/partner/answer/10013009)) may be sold elsewhere only if they're also on Google Play in every country, at no higher a price elsewhere, and you must hold the audiobook rights.
+
+## Rights and exclusive deals
+
+**Confirmed from [ACX's distribution options](https://help.acx.com/s/article/choose-a-distribution-option), dated 21 October 2026.** Exclusive distribution gives Audible the right for seven years, and the book can't be sold or distributed anywhere else. Non-exclusive lets you sell it elsewhere. So a recording made for an ACX exclusive title can't go to Google Play until that ends, and a narrator's Royalty Share deal needs reading too. The app asks before it exports such a title (decision 19).
+
+## Kobo
+
+**Not confirmed.** No official figures were found on 6 November 2026. Kobo's own page says you ask its team for the audiobook tab first.
 
 ## Machine voices, in short
 
@@ -70,7 +94,9 @@ This wants a very different layout from ACX: a few long tracks, not one file per
 | ACX | No | Yes |
 | Voices by INaudio | No, only three named providers | Yes |
 | Your own site, or direct to listeners | Yes, labelled | Yes |
-| Apple Books, Google Play, Kobo | Unconfirmed | Yes |
+| Google Play Books | Marked *Synthesized voice*, to confirm in Partner Center | Marked *Human narrator* |
+| A voice of your own (v1.17) | Counts as a machine voice everywhere. INaudio counts a clone of your own voice as AI | — |
+| Apple Books, Kobo | Unconfirmed | Yes |
 
 Whatever a store says, the voices' licence requires saying the audio is machine-made. See [audio libraries](audio-libraries.md).
 

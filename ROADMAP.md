@@ -10,7 +10,7 @@ tags: [roadmap, planning]
 
 RT Audio Studio is where audiobooks and podcasts are recorded and finished. This is the slow project of the suite, worked on
 in the background, so every release is small and useful by itself: if work stops after any of them, what's there still does
-a real job. Nothing here is built yet: **building starts when the owner approves this plan.** The reasons are in the
+a real job. The owner approved this plan on 17 November 2026, and step zero is under way. The reasons are in the
 [product plan](docs/product-plan.md), and the choices are in [decisions](docs/decisions.md).
 
 > [!TIP]
@@ -28,7 +28,7 @@ losing anything, and pass its automated tests on Windows, Mac and Linux.
 
 | Release | Theme | Status |
 |---|---|---|
-| [Step zero](#step-zero--prove-the-hard-parts) | Prove the hard parts | Waiting for approval |
+| [Step zero](#step-zero--prove-the-hard-parts) | Prove the hard parts | 🚧 In progress |
 | [v1.0](#v10--record) | Record | Planned |
 | [v1.1](#v11--edit) | Edit | Planned |
 | [v1.2](#v12--clean-up) | Clean up | Planned |
@@ -46,7 +46,8 @@ losing anything, and pass its automated tests on Windows, Mac and Linux.
 | [v1.14](#v114--lock-a-project) | Lock a project | Planned |
 | [v1.15](#v115--hired-narrators) | Hired narrators | Planned |
 | [v1.16](#v116--ai-add-ons) | AI add-ons | Planned |
-| [v1.17](#v117--call-in-guests) | Call-in guests | Planned |
+| [v1.17](#v117--a-voice-of-your-own) | A voice of your own | Planned |
+| [v1.18](#v118--call-in-guests) | Call-in guests | Planned |
 | [Later](#later--only-if-needed) | Only if needed | Ideas |
 | [Ongoing](#ongoing--polish--distribution) | Polish & distribution | Ongoing |
 
@@ -150,12 +151,14 @@ Not a release. Recording that can't lose a word is the whole promise, so the ris
 | Feature | Size | Details |
 |---|:-:|---|
 | 🙋 Check against a store | L | Volume, peaks, noise floor, format, sample rate, file length, room tone and matching channels, for each file, with the exact place that fails. |
-| 🙋 Store profiles | M | ACX first, then Apple Books and Voices by INaudio, with Google Play and Kobo once their rules are confirmed. Each rule shows where it came from and when it was checked. |
+| 🙋 Store profiles | M | ACX and Google Play Books first, the two the owner uses, then Apple Books and Voices by INaudio, and Kobo once its rules are confirmed. Each rule shows where it came from and when it was checked. |
+| 🙋 Replace a Google audiobook | M | Make a better edition of a book Google narrated with its own voice: a complete set of files named the way Google asks, at its quality, marked *Human narrator* or *Synthesized voice*. Tried on one book first. |
+| 🙋 Rights check | S | Each book records who narrated it and under what deal. A title on an ACX exclusive deal, which runs seven years, is held back from other stores until you confirm the deal allows it. |
 | Fix what's safe | M | Offers the fix when it's safe, such as level or room tone. Never changes anything by itself, and says so when the answer is to record again. |
 | The release sheet | M | One page for the book: every chapter, every check, who narrated it, and which stores it can go to. Save it with the book. |
 | Export for a store | S | One step makes the files the way that store wants them, with the right names, format and layout. |
 
-**Test:** a set of test chapters, each failing one rule on purpose, is caught with the right time. A clean book passes, and a real ACX submission is the final proof.
+**Test:** a set of test chapters, each failing one rule on purpose, is caught with the right time. A clean book passes, and a real ACX submission and one replaced Google audiobook are the final proof.
 
 ## v1.6 — More than one voice
 
@@ -179,6 +182,7 @@ Not a release. Recording that can't lose a word is the whole promise, so the ris
 |---|:-:|---|
 | 🙋 Script beside the sound | L | Read from the page while you record. The current chapter's words stay on screen, in the size you choose, and the page turns with you. |
 | 🙋 A chapter from RT Story Tracker | M | Send a chapter across App Link, or open a Markdown, text or Word file. This works with Story Tracker as it is today. |
+| 🙋 Recordings you already have | M | Bring in a narration made before, by you or a narrator whose rights you hold, and follow it on the page as if it had been recorded here. |
 | Marks on the page | M | Marks you made while recording appear in the text, so you see where to go back to. |
 | 🙋 Apps panel | M | The suite's shared panel: which Recon Towers apps are installed, running and linked. |
 
@@ -296,11 +300,24 @@ Unreleased work kept private, for those who want it (decision 8).
 |---|:-:|---|
 | 🛡️ Your own AI service | M | Reader's service list: Claude, ChatGPT, Gemini, Mistral, OpenRouter, or Ollama and LM Studio on your computer. |
 | 🛡️ Writing help | S | Draft show notes, titles and chapter names from a transcript. You approve every word. |
-| 🛡️ 🙋 Other voice services | M | Use a voice service with your own key. Its audio is labelled and tracked as a machine voice. |
+| 🛡️ 🙋 Other voice services | M | Use a voice service with your own key. Its audio is labelled and tracked as a machine voice, and a cloned voice there needs the same spoken consent as v1.17. |
 
 **Test:** with AI off, no request leaves the computer, and every feature above says it's off. With a local model, nothing leaves either.
 
-## v1.17 — Call-in guests
+## v1.17 — A voice of your own
+
+🙋 A voice made from one person's reading, run on your own computer. An optional add-on, and always labelled as a synthesized voice. Planned now, built later.
+
+| Feature | Size | Details |
+|---|:-:|---|
+| 🛡️ 🙋 Consent, spoken live | M | The person reads a consent sentence and a short random passage into the microphone, in the app, even when it's you. That reading makes the voice and is kept with it. Clips from files are refused, so nobody's voice can be copied from a recording (decision 18). |
+| 🛡️ 🙋 The voice reads the book | L | A local model reads the chapters in that voice, with names from the dictionary. First choice: Chatterbox, MIT for its code and model files, which runs on the same engine as the natural voices. |
+| 🙋 Labelled and marked | M | Every file says it's a synthesized voice, carries an inaudible watermark, and counts as machine audio on the release sheet. Stores that want a human refuse it. |
+| 🙋 Withdraw it | S | The person can withdraw consent, and the voice is deleted with everything made from it marked. |
+
+**Test:** a voice can't be made from an imported file. A book read by a cloned voice can't pass the ACX export, and goes to Google marked *Synthesized voice*.
+
+## v1.18 — Call-in guests
 
 🙋 Live calls, added last because they're the one thing that needs the internet.
 

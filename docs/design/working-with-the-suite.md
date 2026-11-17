@@ -60,7 +60,7 @@ Reader's list today is a word and how to say it. That's enough for the voices, b
 
 ### To RT Author Desk: `audio_made`
 
-A short record: which book or show, the kind (audiobook or episode), running time, narrators, whether any of it is machine-made, and where the files are. Paths stay on this computer. Author Desk plans this in v1.5. This fact and its name need agreeing with that plan.
+A short record: which book or show, the kind (audiobook or episode), running time, narrators, whether any of it is machine-made, which store it was made for (such as a Google Play edition replacing Google's own), and where the files are. Paths stay on this computer. Author Desk plans this in v1.5. This fact and its name need agreeing with that plan.
 
 ### Status
 

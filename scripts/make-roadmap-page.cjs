@@ -67,7 +67,7 @@ const releases = roadmap
 const isVersion = (release) => /^(v\d|Step zero)/.test(release.id);
 const versions = releases.filter(isVersion);
 const others = releases.filter((release) => !isVersion(release));
-const coming = versions.filter((release) => release.kind === 'plan');
+const coming = versions.filter((release) => release.kind === 'plan' || release.kind === 'here');
 
 function itemHtml(item) {
   const [sizeClass, sizeLabel] = SIZES[item.size] ?? [];
@@ -261,7 +261,7 @@ const html = `<!DOCTYPE html>
   <ul>${page.now.items.map((item) => `<li><b>${inline(item.title)}</b><span>${inline(item.text)}</span></li>`).join('')}</ul>
 </section>
 <div class="glance">
-  <div class="card next"><span class="label">Up next</span><b><a href="#${anchor(next.id)}">${escape(next.id)}: ${inline(next.theme)}</a></b><p>${inline(next.intro)}</p></div>
+  <div class="card next"><span class="label">Working on now</span><b><a href="#${anchor(next.id)}">${escape(next.id)}: ${inline(next.theme)}</a></b><p>${inline(next.intro)}</p></div>
   <div class="card ok"><span class="label">Then the first release</span><b><a href="#${anchor(coming[1].id)}">${escape(coming[1].id)}: ${inline(coming[1].theme)}</a></b><p>${inline(coming[1].intro)}</p></div>
   <div class="card you"><span class="label">Waiting on you</span><b>${escape(page.waiting.title.replace('{decisions}', String(open.length)))}</b><p>${inline(page.waiting.text)}</p></div>
 </div>
