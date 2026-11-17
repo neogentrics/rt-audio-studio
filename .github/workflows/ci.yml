@@ -1,0 +1,41 @@
+name: CI
+
+on:
+  push:
+    branches: [main, 'feature/**']
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  test:
+    name: Test (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest, ubuntu-latest, macos-latest]
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - run: npm test
+      - name: The app starts (virtual display)
+        if: runner.os == 'Linux'
+        timeout-minutes: 3
+        run: RTAS_SMOKE=1 xvfb-run -a npx electron --no-sandbox . | tee smoke.log && grep -q "window loaded" smoke.log
+      - name: The app starts
+        if: runner.os != 'Linux'
+        timeout-minutes: 3
+        shell: bash
+        run: RTAS_SMOKE=1 npx electron . | tee smoke.log && grep -q "window loaded" smoke.log

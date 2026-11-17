@@ -1,0 +1,21 @@
+{
+  "name": "rt-audio-studio",
+  "productName": "RT Audio Studio",
+  "version": "0.0.0",
+  "description": "Make audiobooks and podcasts on your own computer, for Windows, macOS and Linux.",
+  "author": "Recon Towers Dev Department <author@neogentrics.com>",
+  "license": "SEE LICENSE IN LICENSE",
+  "private": true,
+  "main": "src/main/main.js",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "start": "electron .",
+    "test": "node --test \"test/*.test.cjs\"",
+    "roadmap": "node scripts/make-roadmap-page.cjs"
+  },
+  "devDependencies": {
+    "electron": "^45.2.2"
+  }
+}
