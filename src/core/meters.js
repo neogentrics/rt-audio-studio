@@ -6,7 +6,8 @@
 //                the ACX volume range is usually measured in.
 //  - noiseFloor: the level of the quietest half second, in the same units. ACX means the silence between phrases.
 //  - loudness:   integrated loudness in LUFS, by ITU-R BS.1770-4 (K-weighting, 400 ms blocks, absolute and relative gates).
-//  - truePeak:   the peak between samples, in dBTP, by four times oversampling.
+//  - truePeak:   the peak between samples, in dBTP, by four times oversampling with 48 taps a phase. Fewer taps read
+//                up to 0.3 dB low on bright sound (scripts/try-true-peak.cjs), and a peak meter mustn't read low.
 //
 // Input is one Float32Array per channel. Only mono and stereo are handled: every channel counts with a weight of 1.
 
@@ -136,7 +137,7 @@ function oversampler(factor, perPhase) {
   return phases;
 }
 
-function truePeak(channels, { factor = 4, perPhase = 12 } = {}) {
+function truePeak(channels, { factor = 4, perPhase = 48 } = {}) {
   const phases = oversampler(factor, perPhase);
   const n = phases[0].length;
   let m = 0;
