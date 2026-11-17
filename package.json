@@ -16,6 +16,7 @@
     "roadmap": "node scripts/make-roadmap-page.cjs"
   },
   "devDependencies": {
-    "electron": "^45.2.2"
+    "electron": "^45.2.2",
+    "lamejs": "^1.2.1"
   }
 }
