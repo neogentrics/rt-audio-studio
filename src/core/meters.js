@@ -114,10 +114,9 @@ function loudness(channels, sampleRate) {
   return lufs(mean(kept));
 }
 
-/** A low-pass for four times oversampling: a windowed sinc, 12 taps for each of the 4 phases. */
-function oversampler() {
-  const taps = 48;
-  const factor = 4;
+/** A low-pass for oversampling `factor` times: a windowed sinc, `perPhase` taps for each phase. */
+function oversampler(factor, perPhase) {
+  const taps = factor * perPhase;
   const h = new Float64Array(taps);
   const mid = (taps - 1) / 2;
   for (let n = 0; n < taps; n++) {
@@ -137,8 +136,8 @@ function oversampler() {
   return phases;
 }
 
-function truePeak(channels) {
-  const phases = oversampler();
+function truePeak(channels, { factor = 4, perPhase = 12 } = {}) {
+  const phases = oversampler(factor, perPhase);
   const n = phases[0].length;
   let m = 0;
   for (const ch of channels) {
