@@ -81,10 +81,12 @@ Not a release. Recording that can't lose a word is the whole promise, so the ris
 | Listen back | S | Play, skip and jump by keyboard, through the speakers or headset you choose. |
 | 🙋 Finished files | M | Export WAV, FLAC or MP3 on all three systems. MP3 is true constant bit rate, up to 320 kbps. |
 | Bring in audio | S | Open WAV, FLAC, MP3 and M4A as a take. |
-| Same as the other apps | M | Themes and fonts, installers, self-update, a Help window, and App Link: off until you turn it on. |
+| 🙋 Looks like the rest of the suite | L | RT Markdown Reader is the reference, and its wording and layout are copied. Short File, Edit, View and Help menus, with rarely used commands in submenus and every command available by name from `Ctrl+K`. Help in the suite's order: *Help Center* (`F1`), *Tutorial*, *Check for Updates…*, *About RT Audio Studio <version>*. A Help Center of searchable Markdown guides, and a hands-on tutorial with a practice take, offered the first time and replayable. An About window with the icon, version, *Website*, *What's new*, *Report a problem*, *Source code*, a *Copy details* line, and the *License* and *Open-source notices* links. One Preferences window (`Ctrl+,`). The shared themes plus *Glass*, *Colour-safe* and *Customize Theme*, with the theme button on the main screen, and the shared fonts. An icon toolbar with names on hover, and self-update with *Restart to update* where the system allows it. |
+| 🙋 Checked for access and languages | M | Every button has a name, every theme passes WCAG AA contrast, Windows high contrast works, and everything can be done from the keyboard, all checked by tests. The app's words live in one table per feature, with Spanish, French and German and right-to-left layouts, and product names marked so they aren't translated. |
+| App Link: off until you turn it on | S | The suite's linking rules, as in v1.7. |
 | 🙋 Installed file | S | On first run and after each update, the app writes `installed/rt-audio-studio.json` (id, name, version, launch path and App Link version) in the App Link folder, and removes it when it's uninstalled. This is what lets the other apps find it. |
 
-**Test:** record two hours and force the app to close during it. It reopens with everything but the last second. Fill the disk during a take and nothing recorded so far is lost.
+**Test:** record two hours and force the app to close during it. It reopens with everything but the last second. Fill the disk during a take and nothing recorded so far is lost. The menu, contrast and button-name checks run in the tests on all three systems, and the File menu stays within the suite's cap of 20 items.
 
 ## v1.1 — Edit
 
@@ -340,7 +342,6 @@ Ideas with no date.
 | AAC on Linux | M | If the owner gets legal advice that it's safe, `.m4b` on Linux with FFmpeg's encoder (decision 7). |
 | Video podcasts | L | Keeping a video track in step with the audio edits. |
 | Two computers | L | Each side of a project on a second computer, through a folder you already sync. Audio makes this a big job. |
-| More languages | M | The app in other languages, as in RT Markdown Reader. |
 
 ## Ongoing — Polish & distribution
 

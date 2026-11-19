@@ -99,3 +99,7 @@ These were recommendations the plan followed. He approved the plan, and with it 
 ### 21. When this repo goes public
 
 Waiting for the owner. This app is a private repo, so it can't be listed in the suite's `versions.json` or offered as a store download. He's deciding whether each private app's repo becomes public at its first public release. The plan assumes it might, and nothing here changes the repo's visibility.
+
+### 22. Look and feel
+
+✅ **Chosen 19 November 2026:** one look and feel across the suite, with RT Markdown Reader as the reference (its `docs/app-suite.md`, "Look and feel in every app"). It's in v1.0 of the [roadmap](../ROADMAP.md), so the first real release feels like the rest of the suite. Languages move into v1.0 too, because the standard asks for them. A recording screen has no use for some of it, such as the document commands in File, and where that's so the app builds the small version and says so.
