@@ -82,6 +82,7 @@ Not a release. Recording that can't lose a word is the whole promise, so the ris
 | 🙋 Finished files | M | Export WAV, FLAC or MP3 on all three systems. MP3 is true constant bit rate, up to 320 kbps. |
 | Bring in audio | S | Open WAV, FLAC, MP3 and M4A as a take. |
 | Same as the other apps | M | Themes and fonts, installers, self-update, a Help window, and App Link: off until you turn it on. |
+| 🙋 Installed file | S | On first run and after each update, the app writes `installed/rt-audio-studio.json` (id, name, version, launch path and App Link version) in the App Link folder, and removes it when it's uninstalled. This is what lets the other apps find it. |
 
 **Test:** record two hours and force the app to close during it. It reopens with everything but the last second. Fill the disk during a take and nothing recorded so far is lost.
 
@@ -184,9 +185,10 @@ Not a release. Recording that can't lose a word is the whole promise, so the ris
 | 🙋 A chapter from RT Story Tracker | M | Send a chapter across App Link, or open a Markdown, text or Word file. This works with Story Tracker as it is today. |
 | 🙋 Recordings you already have | M | Bring in a narration made before, by you or a narrator whose rights you hold, and follow it on the page as if it had been recorded here. |
 | Marks on the page | M | Marks you made while recording appear in the text, so you see where to go back to. |
-| 🙋 Apps panel | M | The suite's shared panel: which Recon Towers apps are installed, running and linked. |
+| 🙋 Apps status | M | A small icon at the right of the toolbar, with a coloured dot, that opens the suite's shared panel: every Recon Towers app, with one state and one button (*Linked*: Open, *Found, not linked*: Link, *Installed, not running*: Open, *Not installed*: Get it). Green means one is linked, amber found but none linked, grey none found, off App Link is off. The wording is the suite's, and finding an app never links it. It looks only when it opens, at start and on *Refresh*. Copies RT Story Tracker's panel, which builds the shared parts first. |
+| 🙋 Updates and compatibility | S | Two apps link by App Link version and the kinds of document they accept, never by app version. The panel nudges *Update available (you have X, the latest is Y)* with *Open to update* or *Download*, taking "latest" from `recontowers.com/apps/versions.json`, kept for a day, and says *Couldn't check for updates* offline. Only an incompatible version blocks, with *Needs an update to link*. |
 
-**Test:** a whole chapter sent from RT Story Tracker can be read, marked and retaken without touching the mouse.
+**Test:** a whole chapter sent from RT Story Tracker can be read, marked and retaken without touching the mouse. With the other apps installed and closed, the panel offers to open them. Uninstalling removes the installed file, and a file left behind with no app at its launch path doesn't count as installed.
 
 ## v1.8 — Local transcripts
 

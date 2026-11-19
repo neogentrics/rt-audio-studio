@@ -91,3 +91,11 @@ These were recommendations the plan followed. He approved the plan, and with it 
 ### 19. Rights before re-use
 
 ✅ **Chosen 17 November 2026:** A book records who narrated it and under what deal, and a title on an ACX exclusive deal is held back from other stores until he confirms the deal allows it. ACX's exclusive term is seven years.
+
+### 20. Suite-wide rules
+
+✅ **Chosen 18 November 2026:** taken on from the suite plan in RT Markdown Reader's `docs/app-suite.md`: the installed file, the apps status indicator and its panel, and updates and compatibility. They are in v1.0 and v1.7 of the [roadmap](../ROADMAP.md). Research clips from Recon Browser aren't needed here.
+
+### 21. When this repo goes public
+
+Waiting for the owner. This app is a private repo, so it can't be listed in the suite's `versions.json` or offered as a store download. He's deciding whether each private app's repo becomes public at its first public release. The plan assumes it might, and nothing here changes the repo's visibility.

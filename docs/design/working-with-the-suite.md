@@ -66,6 +66,14 @@ A short record: which book or show, the kind (audiobook or episode), running tim
 
 Answers the suite's `status` request with a short line, such as "Exporting chapter 4 of 30". Never any words from a script, and a locked project says nothing.
 
+## Found when installed, and kept up to date
+
+From the suite plan, 18 November 2026. Planned across the suite and not built yet.
+
+- **Installed file.** `installed/rt-audio-studio.json` in the App Link folder, written on first run and after each update, removed on uninstall. An app counts as installed only if its launch path still exists.
+- **Apps status.** The icon and panel in [the roadmap's v1.7](../../ROADMAP.md), with the suite's wording and one shared list of apps. It copies RT Story Tracker's.
+- **Updates.** Apps link by App Link version and accepted document kinds, never app version. A newer release is a nudge only. "Latest" comes from `recontowers.com/apps/versions.json`, which isn't live yet, and this app can't be in it while its repo is private (decision 21).
+
 ## What this app will and won't do with requests
 
 As App Link requires: nothing is saved because of a request, a received document opens as an unsaved script, everything received is treated as untrusted, and links are off until the person turns them on. A request can never start or stop a recording.

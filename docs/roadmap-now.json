@@ -1,25 +1,25 @@
 {
   "now": {
-    "title": "Step zero: prove the hard parts",
-    "note": "The plan was approved on 17 November 2026. Building happens on the Linux dev machine, and the tests that need a microphone wait for your own computer.",
+    "title": "Step zero is paused until you say start",
+    "note": "The groundwork is built and tested on Windows, Mac and Linux. The ten-hour recording test and the real-LAME comparison wait for the dev machine, which this computer can't reach right now.",
     "items": [
       {
-        "title": "On the dev machine",
-        "text": "Project setup, the disk layer, meters checked against test files, the MP3 encoder, and very long files."
+        "title": "Done and tested",
+        "text": "Crash-safe takes, the disk layer, meters that match a second tool, and waveform summaries. Results are in docs/step-zero-results.md."
       },
       {
         "title": "Needs your gear",
-        "text": "Two hours of recording on your own microphone, and the microphone on a Mac. The dev machine has no sound card."
+        "text": "Two hours of recording on your own microphone on each system, and the microphone on a Mac."
       },
       {
-        "title": "Added since the plan",
-        "text": "Google Play Books beside ACX, recordings you already have, a rights check, and a voice of your own in v1.17."
+        "title": "Added since",
+        "text": "Google Play Books, a rights check, a voice of your own, and the suite's rules: the installed file, the apps status panel, and updates."
       }
     ]
   },
   "waiting": {
-    "title": "Nothing waiting on you",
-    "text": "Every decision is made. You'll be asked to run the recording test when step zero gets to it."
+    "title": "Say when to start building",
+    "text": "Nothing is being built. One question is open: whether this app's repo goes public at its first release."
   },
   "questions": [
     {
