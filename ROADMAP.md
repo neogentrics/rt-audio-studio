@@ -28,7 +28,7 @@ losing anything, and pass its automated tests on Windows, Mac and Linux.
 
 | Release | Theme | Status |
 |---|---|---|
-| [Step zero](#step-zero--prove-the-hard-parts) | Prove the hard parts | 🚧 In progress |
+| [Step zero](#step-zero--prove-the-hard-parts) | Prove the hard parts | 🚧 Partly done, paused until the owner says start |
 | [v1.0](#v10--record) | Record | Planned |
 | [v1.1](#v11--edit) | Edit | Planned |
 | [v1.2](#v12--clean-up) | Clean up | Planned |
@@ -57,14 +57,14 @@ Not a release. Recording that can't lose a word is the whole promise, so the ris
 
 | Task | Size | Details |
 |---|:-:|---|
-| Project setup | M | The app in this repo, with tests, CI on all three systems and a clean README, built the way RT Story Tracker is. |
+| ✅ Project setup | M | The app in this repo, with tests, CI on all three systems and a clean README, built the way RT Story Tracker is. **Done:** an empty app that starts, 18 tests, and CI that passes on all three systems. |
 | Recording test | L | Two hours of recording on Windows, Mac and Linux with the owner's own gear, with every system effect off, counting every sample. It settles whether Electron's own audio is enough or a native part is needed, and how many inputs it can see at once. |
 | Microphone on an unsigned Mac app | S | Releases aren't signed on Mac yet. Prove that macOS still lets the app use the microphone after installing from the DMG. |
-| Very long files | M | Scroll and zoom a ten-hour recording smoothly, with memory use that stays flat. |
+| Very long files | M | Scroll and zoom a ten-hour recording smoothly, with memory use that stays flat. **Half done:** the waveform summary works and drawing takes under 2 ms at any zoom. A fifteen-minute run used 128 MB at most, and the ten-hour run was cut short by a restart of the dev machine. |
 | Transcript speed | M | Time one hour of speech with Reader's WebAssembly engine against the native engine, at three model sizes, on a normal laptop. It settles what v1.8 uses. |
-| MP3 encoder | S | Compare the real LAME 3.100 as WebAssembly with Reader's `lamejs`, at a true 192 kbps constant bit rate and 44.1 kHz. Check the result with a separate tool. |
-| Meters | S | Our RMS, peak, noise floor and loudness readings, tested against published test files and a second tool, so the numbers can be trusted before anything depends on them. |
-| One way to reach the disk | S | Every read and write goes through one layer from the first line, so the project lock in v1.14 isn't a rewrite. |
+| MP3 encoder | S | Compare the real LAME 3.100 as WebAssembly with Reader's `lamejs`, at a true 192 kbps constant bit rate and 44.1 kHz. Check the result with a separate tool. **Half done:** `lamejs` makes a true constant 192 and 256 kbps at 44.1 kHz with no decode errors. LAME as WebAssembly is still to compare. |
+| ✅ Meters | S | Our RMS, peak, noise floor and loudness readings, tested against published test files and a second tool, so the numbers can be trusted before anything depends on them. **Done:** loudness within 0.03 LU of FFmpeg, peak and RMS exact, true peak within 0.07 dB and never low. The noise floor has no published standard, so the first real ACX submission checks it. |
+| ✅ One way to reach the disk | S | Every read and write goes through one layer from the first line, so the project lock in v1.14 isn't a rewrite. **Done:** takes are written through it, never over an existing file, and the tests make the disk fail on purpose. |
 
 **Test:** a written result for each one, with the numbers. A failed test changes the plan, and the owner hears about it before 1.0 starts.
 
@@ -81,7 +81,7 @@ Not a release. Recording that can't lose a word is the whole promise, so the ris
 | Listen back | S | Play, skip and jump by keyboard, through the speakers or headset you choose. |
 | 🙋 Finished files | M | Export WAV, FLAC or MP3 on all three systems. MP3 is true constant bit rate, up to 320 kbps. |
 | Bring in audio | S | Open WAV, FLAC, MP3 and M4A as a take. |
-| 🙋 Looks like the rest of the suite | L | RT Markdown Reader is the reference, and its wording and layout are copied. Short File, Edit, View and Help menus, with rarely used commands in submenus and every command available by name from `Ctrl+K`. Help in the suite's order: *Help Center* (`F1`), *Tutorial*, *Check for Updates…*, *About RT Audio Studio <version>*. A Help Center of searchable Markdown guides, and a hands-on tutorial with a practice take, offered the first time and replayable. An About window with the icon, version, *Website*, *What's new*, *Report a problem*, *Source code*, a *Copy details* line, and the *License* and *Open-source notices* links. One Preferences window (`Ctrl+,`). The shared themes plus *Glass*, *Colour-safe* and *Customize Theme*, with the theme button on the main screen, and the shared fonts. An icon toolbar with names on hover, and self-update with *Restart to update* where the system allows it. |
+| 🙋 Looks like the rest of the suite | L | RT Markdown Reader is the reference, and its wording and layout are copied. Short File, Edit, View and Help menus, with rarely used commands in submenus and every command available by name from `Ctrl+K`. Help in the suite's order: *Help Center* (`F1`), *Tutorial*, *Check for Updates…*, *About RT Audio Studio <version>*. A Help Center of searchable Markdown guides, and a hands-on tutorial with a practice take, offered the first time and replayable. An About window with the icon, version, *Website*, *What's new*, *Report a problem*, *Source code*, a *Copy details* line, and the *License* and *Open-source notices* links. One Preferences window (`Ctrl+,`). The shared themes plus *Glass*, *Colour-safe* and *Customize Theme*, with the theme button on the main screen, and the shared fonts. Reader is adding a *Metallic* finish as a third look beside *Solid* and *Glass* (Reader 3.13, built and in testing, not released), and this app copies it once it ships, along with the adjustable toolbar (hide, reorder, shrink). An icon toolbar with names on hover, and self-update with *Restart to update* where the system allows it. |
 | 🙋 Checked for access and languages | M | Every button has a name, every theme passes WCAG AA contrast, Windows high contrast works, and everything can be done from the keyboard, all checked by tests. The app's words live in one table per feature, with Spanish, French and German and right-to-left layouts, and product names marked so they aren't translated. |
 | App Link: off until you turn it on | S | The suite's linking rules, as in v1.7. |
 | 🙋 Installed file | S | On first run and after each update, the app writes `installed/rt-audio-studio.json` (id, name, version, launch path and App Link version) in the App Link folder, and removes it when it's uninstalled. This is what lets the other apps find it. |
