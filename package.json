@@ -13,6 +13,7 @@
   "scripts": {
     "start": "electron .",
     "test": "node --test \"test/*.test.cjs\"",
+    "record-test": "electron src/record-test/main.js",
     "roadmap": "node scripts/make-roadmap-page.cjs"
   },
   "devDependencies": {

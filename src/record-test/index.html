@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>RT Audio Studio recording test</title>
+<style>
+  :root { color-scheme: light dark; --bg: #f0eef6; --card: #fff; --ink: #1f1b2b; --muted: #6c6680; --line: #e0dbea; --accent: #5b3fd6; --bad: #a64b06; --good: #0a7468; }
+  @media (prefers-color-scheme: dark) { :root { --bg: #100e17; --card: #1a1724; --ink: #ebe8f4; --muted: #958fa8; --line: #2f2a44; --accent: #a896ff; --bad: #f5b25c; --good: #3dd0c4; } }
+  body { margin: 0; padding: 20px; background: var(--bg); color: var(--ink); font: 14.5px/1.5 system-ui, sans-serif; }
+  main { max-width: 700px; margin: 0 auto; display: grid; gap: 14px; }
+  h1 { margin: 0; font-size: 20px; } p { margin: 0; color: var(--muted); }
+  section { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; display: grid; gap: 10px; }
+  label { display: grid; gap: 3px; font-weight: 600; } select, input { font: inherit; padding: 6px 8px; border-radius: 7px; border: 1px solid var(--line); background: var(--bg); color: var(--ink); }
+  .row { display: flex; flex-wrap: wrap; gap: 12px; align-items: end; } .row > label { flex: 1 1 180px; }
+  button { font: inherit; font-weight: 600; padding: 9px 16px; border-radius: 8px; border: 0; background: var(--accent); color: #fff; cursor: pointer; } button:disabled { opacity: .5; cursor: default; }
+  button.stop { background: var(--bad); }
+  .stat { display: grid; grid-template-columns: 1fr auto; gap: 2px 12px; font-variant-numeric: tabular-nums; } .stat b { text-align: right; }
+  .meter { height: 10px; border-radius: 5px; background: var(--line); overflow: hidden; } .meter i { display: block; height: 100%; width: 0; background: var(--good); transition: width .1s; }
+  pre { margin: 0; white-space: pre-wrap; font: 12.5px/1.5 ui-monospace, Consolas, monospace; }
+  .bad { color: var(--bad); font-weight: 700; } .good { color: var(--good); font-weight: 700; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Recording test</h1>
+  <p>Records from your real microphone for as long as you choose, with every effect Chromium adds turned off, and then checks the file for dropped sound. Your recording is deleted afterwards unless you ask to keep it.</p>
+  <section>
+    <div class="row">
+      <label>Microphone <select id="device"></select></label>
+      <label>Channels <input id="channels" type="number" min="1" max="32" value="1"></label>
+      <label>Minutes <input id="minutes" type="number" min="0.1" step="any" value="120"></label>
+    </div>
+    <p id="seen"></p>
+    <p id="caps">Allow the microphone when asked.</p>
+    <label style="font-weight:400;display:flex;gap:8px;align-items:center"><input id="keep" type="checkbox"> Keep the recording afterwards</label>
+    <div class="row"><button id="go" disabled>Start recording</button><button id="stop" class="stop" hidden>Stop and check</button></div>
+  </section>
+  <section id="live" hidden>
+    <div class="meter"><i id="level"></i></div>
+    <div class="stat">
+      <span>Recording for</span><b id="elapsed">0:00:00</b>
+      <span>Sound received, against the clock</span><b id="ratio">100.000%</b>
+      <span>Longest wait for sound</span><b id="gap">0 ms</b>
+      <span>Free disk space</span><b id="free">-</b>
+    </div>
+    <p>Keep this window open, and the computer awake. Speak or play sound now and then, so a dropout shows as a gap.</p>
+  </section>
+  <section id="done" hidden><pre id="report"></pre></section>
+</main>
+<script>
+const $ = (id) => document.getElementById(id);
+const hms = (s) => `${Math.floor(s / 3600)}:${String(Math.floor(s / 60) % 60).padStart(2, '0')}:${String(Math.floor(s) % 60).padStart(2, '0')}`;
+let session = null;
+
+async function probe(deviceId) {
+  const s = await navigator.mediaDevices.getUserMedia({ audio: { deviceId: deviceId ? { exact: deviceId } : undefined, echoCancellation: false, noiseSuppression: false, autoGainControl: false } });
+  const t = s.getAudioTracks()[0];
+  const caps = t.getCapabilities ? t.getCapabilities() : {};
+  const settings = t.getSettings();
+  s.getTracks().forEach((x) => x.stop());
+  return { max: caps.channelCount?.max ?? settings.channelCount ?? 1, rate: settings.sampleRate };
+}
+
+async function devices() {
+  const info = await window.rt.info();
+  $("caps").textContent = `Saving to ${info.dir}. ${info.system}, Electron ${info.electron}. Microphone permission: ${info.micStatus}.`;
+  if (!(await window.rt.micAccess())) { $('caps').textContent += ' The system refused the microphone. Allow it in the system settings and start again.'; return; }
+  await probe();
+  const list = (await navigator.mediaDevices.enumerateDevices()).filter((d) => d.kind === 'audioinput' && d.deviceId !== 'default' && d.deviceId !== 'communications');
+  $('device').replaceChildren(...list.map((d) => Object.assign(new Option(d.label || 'Microphone', d.deviceId))));
+  await choose();
+  $('go').disabled = false;
+}
+
+async function choose() {
+  const p = await probe($('device').value);
+  $('channels').max = p.max;
+  $('channels').value = p.max;
+  $('seen').textContent = `Chromium sees ${p.max} input channel${p.max === 1 ? '' : 's'} on this device, at ${p.rate || '?'} Hz.`;
+}
+
+async function start() {
+  const channels = Number($('channels').value);
+  const minutes = Number($('minutes').value);
+  const stream = await navigator.mediaDevices.getUserMedia({ audio: {
+    deviceId: { exact: $('device').value }, channelCount: { exact: channels },
+    echoCancellation: false, noiseSuppression: false, autoGainControl: false, sampleRate: { ideal: 48000 },
+  } });
+  const track = stream.getAudioTracks()[0];
+  const settings = track.getSettings();
+  const ctx = new AudioContext({ sampleRate: settings.sampleRate || 48000, latencyHint: 'playback' });
+  await ctx.audioWorklet.addModule('worklet.js');
+  const source = ctx.createMediaStreamSource(stream);
+  const node = new AudioWorkletNode(ctx, 'collector', { numberOfInputs: 1, numberOfOutputs: 1, channelCount: channels, channelCountMode: 'explicit', outputChannelCount: [1], processorOptions: { channels } });
+  const mute = ctx.createGain();
+  mute.gain.value = 0;
+  source.connect(node).connect(mute).connect(ctx.destination);
+  const opts = { sampleRate: ctx.sampleRate, channels, minutes, device: $('device').selectedOptions[0].text, maxChannels: Number($('channels').max) };
+  await window.rt.start(opts);
+  session = { ctx, stream, started: performance.now(), frames: 0, peak: 0, last: performance.now(), maxGap: 0, opts };
+  node.port.onmessage = (e) => {
+    const f = e.data;
+    window.rt.samples(f);
+    const now = performance.now();
+    session.maxGap = Math.max(session.maxGap, now - session.last);
+    session.last = now;
+    session.frames += f.length / channels;
+    let p = 0;
+    for (let i = 0; i < f.length; i += 64) p = Math.max(p, Math.abs(f[i]));
+    session.peak = Math.max(p, session.peak * 0.8);
+  };
+  window.rt.onStopped((why) => { if (session) stop(`stopped by the app: ${why.message}`); });
+  $('go').hidden = true; $('stop').hidden = false; $('live').hidden = false; $('done').hidden = true;
+  session.timer = setInterval(async () => {
+    const wall = (performance.now() - session.started) / 1000;
+    $('elapsed').textContent = hms(wall);
+    $('ratio').textContent = `${((session.frames / (wall * ctx.sampleRate)) * 100).toFixed(3)}%`;
+    $('gap').textContent = `${Math.round(session.maxGap)} ms`;
+    $('level').style.width = `${Math.min(100, session.peak * 100)}%`;
+    const info = await window.rt.info();
+    $('free').textContent = info.freeBytes === null ? '-' : `${(info.freeBytes / 1e9).toFixed(1)} GB`;
+    if (wall >= minutes * 60) stop('finished');
+  }, 500);
+}
+
+async function stop(why) {
+  if (!session) return;
+  const s = session;
+  session = null;
+  clearInterval(s.timer);
+  s.stream.getTracks().forEach((t) => t.stop());
+  await s.ctx.close();
+  $('stop').hidden = true;
+  const report = await window.rt.stop({ framesReceived: s.frames }, $('keep').checked);
+  $('live').hidden = true; $('done').hidden = false;
+  const lines = Object.entries(report).filter(([k]) => k !== 'verdict').map(([k, v]) => `${k}: ${typeof v === 'object' ? JSON.stringify(v) : v}`);
+  $('report').innerHTML = `<span class="${report.verdict.startsWith('CLEAN') ? 'good' : 'bad'}">${report.verdict}</span>\n(${why})\n\n${lines.join('\n')}\n\nThe report was saved as ${report.reportFile}. Please send it back.`;
+  $('go').hidden = false;
+  document.title = `${report.verdict.split(':')[0]}: recording test`;
+  window.__report = report;
+}
+
+$('device').addEventListener('change', choose);
+$('go').addEventListener('click', () => start().catch((e) => { $('caps').textContent = `Couldn't start: ${e.message}`; }));
+$('stop').addEventListener('click', () => stop('stopped by you'));
+devices().then(() => {
+  const auto = Number(new URLSearchParams(location.search).get('auto'));
+  if (auto) { $('minutes').value = auto; start(); }
+}).catch((e) => { $('caps').textContent = `Couldn't open the microphone: ${e.message}`; });
+</script>
+</body>
+</html>
